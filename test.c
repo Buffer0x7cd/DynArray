@@ -37,6 +37,19 @@ void test_getSize(void)
 	DynArray_pushBack(ptr,3);
 	assert(DynArray_getSize(ptr) == 3);
 }
+
+void test_array_expension(void)
+{
+	DynArray *ptr = malloc(sizeof(DynArray));
+	DynArray_init(ptr);
+	assert(ptr);
+	size_t counter = 100*INIT_BUFFER_SIZE;
+	for (size_t i = 0; i < counter; i++)
+	{
+		DynArray_pushBack(ptr, i);
+	}
+	assert(DynArray_getSize(ptr) == counter);
+}
 int main(void)
 {
 	DynArray *ptr = malloc(sizeof(DynArray));
@@ -44,5 +57,6 @@ int main(void)
 	test_initilization(ptr);
 	test_pushBack_and_getElement();
 	test_getSize();
+	test_array_expension();
 	return 0;
 }

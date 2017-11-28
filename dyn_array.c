@@ -5,6 +5,7 @@
 #include <string.h>
 #include <stddef.h>
 #include <assert.h>
+#include <stdio.h>
 
 
 
@@ -90,9 +91,11 @@ bool __DynArray_expendArray(DynArray *self)
 		if (!tmp)
 			return false;
 		size_t byteToCopy = TYPE_SIZE* (self->size);
-		tmp = memcpy(self->data , tmp, byteToCopy);
+		tmp = memcpy(tmp, self->data, byteToCopy);
 		free(self->data);
+		self->data = NULL;
 		self->data =  tmp;
+		self->capicity = 2*(self->capicity);
 		return true;
 
 	}
