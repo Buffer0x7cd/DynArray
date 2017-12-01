@@ -29,4 +29,4 @@ TYPE DynArray_getElement(const DynArray *self, size_t pos);
 bool DynArray_setElement(DynArray *self, size_t pos, TYPE value);
 size_t DynArray_getSize(const DynArray *self);
 bool DynArray_pushBack(DynArray *self, TYPE value);
-bool DynArray_removeElement(DynArray *self, size_t pos);
+TYPE DynArray_removeElement(DynArray *self, size_t pos);
