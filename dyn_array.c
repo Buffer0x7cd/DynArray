@@ -102,6 +102,19 @@ bool __DynArray_expendArray(DynArray *self)
 	return false;
 }
 
+bool __DynArray_shrinkArray(DynArray *self, size_t capicity)
+{
+	TYPE *tmp = __DynArray_createDataPool(capicity);
+	if (!tmp)
+		return false;
+	size_t byteToCopy = TYPE_SIZE*(self->size);
+	tmp = memcpy(tmp, self->data, byteToCopy);
+	free(self->data);
+	self->data = tmp;
+	self->capicity = capicity;
+	return true;
+}
+
 /* push an element to last of the array
  *
  * @param self
@@ -157,6 +170,10 @@ size_t DynArray_getSize(const DynArray *self)
 TYPE DynArray_removeElement(DynArray *self, size_t index)
 {
 	assert(index < self->size);
+	if (self->size < (self->capicity/4))
+	{
+		__DynArray_shrinkArray(self,(self->capicity/2));
+	}
 	TYPE indexValue = self->data[index];
 	for (size_t i = index; i < (self->size - 1); i++)
 		self->data[i] = self->data[i+1];

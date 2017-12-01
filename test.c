@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "dyn_array.h"
-#define TEST_COUNTER 5
+#define TEST_COUNTER 16
 
 
 
@@ -60,12 +60,15 @@ void test__DynArray_removeElement(void)
 		DynArray_pushBack(ptr,i);
 	}
 	assert(DynArray_getSize(ptr) == TEST_COUNTER );
-	DynArray_removeElement(ptr,0);
-	DynArray_removeElement(ptr,0);
-	assert(DynArray_getElement(ptr,0) == 2);
-	assert(DynArray_getElement(ptr,1) == 3);
-	assert(DynArray_getSize(ptr) == (TEST_COUNTER - 2));
+	for (size_t i = 0; i < (TEST_COUNTER - 2) ; i++)
+	{
+		DynArray_removeElement(ptr,0);
+	}
+	assert(DynArray_getElement(ptr,0) == 13);
+	assert(DynArray_getElement(ptr,1) == 14);
+
 }
+
 int main(void)
 {
 	DynArray *ptr = malloc(sizeof(DynArray));
