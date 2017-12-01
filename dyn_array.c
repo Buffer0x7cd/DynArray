@@ -126,9 +126,53 @@ bool DynArray_pushBack(DynArray *self, TYPE value)
 	self->size += 1;
 	return true;
 }
+/*
+ *
+ * returns the current size of elements in array
+ * @param self
+ * 		pointer to a DynArray struct
+ *
+ * @returns
+ * 		current size of the array
+*/
 
 
 size_t DynArray_getSize(const DynArray *self)
 {
 	return self->size;
 }
+
+/*remove the element at a given index
+ *
+ *@param self
+ *		pointer to the DynArray struct
+ *@param index
+ 		index of the element that needs to be removed
+		(If the index is greater then the element in array then the return value is undefined)
+ *
+ * @returns
+ * 		element that's is removed from the given index
+ * */
+
+TYPE DynArray_removeElement(DynArray *self, size_t index)
+{
+	assert(index < self->size);
+	TYPE indexValue = self->data[index];
+	for (size_t i = index; i < (self->size - 1); i++)
+		self->data[i] = self->data[i+1];
+	self->size -= 1;
+	return indexValue;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
